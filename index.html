@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nivora-RP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00ff66',
+                        secondary: '#ffcc00',
+                        danger: '#ff2222',
+                        roxo: '#9933ff',
+                        laranja: '#ff7700',
+                        dark: '#0a0a0a',
+                        whatsapp: '#25d366'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 0 8px currentColor;
+            }
+            .bg-blur {
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark text-white min-h-screen" style="background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://i.imgur.com/8Z7X8ZL.jpeg') center/cover no-repeat fixed;">
+    
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        
+        <!-- Cabeçalho -->
+        <div class="text-center mb-10">
+            <h1 class="text-[clamp(2.5rem,8vw,4.5rem)] font-extrabold text-roxo text-shadow mb-2 drop-shadow-[0_0_15px_rgba(153,51,255,0.5)]">NIVORA ROLEPLAY</h1>
+            <p class="text-lg text-gray-300">O melhor servidor de Roleplay para você!</p>
+        </div>
+
+        <!-- Contatos Comerciais -->
+        <div class="border-2 border-whatsapp rounded-xl p-4 mb-6 bg-black/40 bg-blur shadow-lg shadow-green-500/10 text-center">
+            <h3 class="text-green-400 font-bold text-lg mb-2 flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp"></i> CONTATOS COMERCIAIS
+            </h3>
+            <div class="space-y-1 text-gray-200">
+                <p>7AnjoX: (44) 99114-8268</p>
+                <p>7BielX: (34) 99111-6468</p>
+            </div>
+        </div>
+
+
+        <!-- Seção Promoções e Cupom -->
+        <div class="border-2 border-secondary rounded-xl p-6 mb-6 bg-black/40 bg-blur shadow-lg shadow-secondary/10">
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fa-solid fa-ticket text-secondary text-3xl"></i>
+                <h2 class="text-secondary text-2xl font-bold">PROMOÇÕES E DESCONTOS</h2>
+            </div>
+            <p class="mb-3 text-lg">Use um cupom e ganhe desconto na hora!</p>
+
+            <!-- Campo de Cupom -->
+            <div class="flex gap-2 mb-4">
+                <input id="cupomInput" type="text" placeholder="Digite seu cupom" class="flex-1 px-3 py-2 rounded-lg bg-gray-800 border border-gray-600 text-white focus:outline-none focus:border-secondary">
+                <button id="aplicarCupom" class="bg-secondary hover:bg-[#e6b800] text-black font-bold py-2 px-4 rounded-lg transition">
+                    Aplicar
+                </button>
+            </div>
+            <div id="mensagemCupom" class="text-center font-medium mb-3"></div>
+
+            <div class="space-y-2">
+                <p class="flex items-center gap-2">
+                    <span class="bg-danger px-3 py-1 rounded font-bold">LANCAMENTO20</span>
+                    <span>= 20% DE DESCONTO</span>
+                </p>
+                <p class="flex items-center gap-2">
+                    <span class="bg-primary px-3 py-1 rounded font-bold">NIVORA10</span>
+                    <span>= 10% DE DESCONTO</span>
+                </p>
+            </div>
+        </div>
+
+
+        <!-- Seção Recarregar -->
+        <div class="border-2 border-primary rounded-xl p-6 mb-6 bg-black/40 bg-blur shadow-lg shadow-primary/10">
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fa-solid fa-coins text-primary text-3xl"></i>
+                <h2 class="text-primary text-2xl font-bold">RECARREGAR MOEDAS</h2>
+            </div>
+            <div class="bg-yellow-500/20 border border-yellow-500 text-yellow-300 p-3 rounded-lg flex items-center gap-2 mb-6">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span class="font-medium">Valor mínimo de compra: R$ 5,00</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Cash -->
+                <div class="bg-dark/60 rounded-lg p-4 border border-gray-700">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-sack-dollar text-primary"></i> CASH
+                    </h3>
+                    <p class="text-gray-300 mb-3">1.000 Cash = R$ 1,00</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <button id="menosCash" class="w-10 h-10 bg-danger/80 hover:bg-danger rounded-lg flex items-center justify-center text-xl font-bold transition">-</button>
+                        <input id="valorCash" type="text" value="1000" class="w-28 text-center py-2 rounded-lg bg-gray-800 border border-gray-600 text-white text-lg font-bold" readonly>
+                        <button id="maisCash" class="w-10 h-10 bg-primary/80 hover:bg-primary rounded-lg flex items-center justify-center text-xl font-bold transition">+</button>
+                    </div>
+                    <p class="text-right font-bold text-lg mt-3 mb-1">Valor Original: R$ <span id="precoCash">1,00</span></p>
+                    <p class="text-right font-bold text-lg text-green-400 mb-3">Valor com Desconto: R$ <span id="precoCashDesc">1,00</span></p>
+                    <a id="linkCashAnjo" href="https://wa.me/5544991148268?text=Olá!%20Quero%20comprar%201.000%20Cash%20-%20Valor:%20R$%201,00" target="_blank" class="block w-full bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded-lg text-center transition">
+                        <i class="fa-brands fa-whatsapp mr-1"></i> Comprar com 7AnjoX
+                    </a>
+                    <a id="linkCashBiel" href="https://wa.me/5534991116468?text=Olá!%20Quero%20comprar%201.000%20Cash%20-%20Valor:%20R$%201,00" target="_blank" class="block w-full bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded-lg text-center transition mt-2">
+                        <i class="fa-brands fa-whatsapp mr-1"></i> Comprar com 7BielX
+                    </a>
+                </div>
+
+                <!-- Coins -->
+                <div class="bg-dark/60 rounded-lg p-4 border border-gray-700">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-gem text-secondary"></i> COINS
+                    </h3>
+                    <p class="text-gray-300 mb-3">1 Coin = R$ 10,00</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <button id="menosCoin" class="w-10 h-10 bg-danger/80 hover:bg-danger rounded-lg flex items-center justify-center text-xl font-bold transition">-</button>
+                        <input id="valorCoin" type="text" value="1" class="w-24 text-center py-2 rounded-lg bg-gray-800 border border-gray-600 text-white text-lg font-bold" readonly>
+                        <button id="maisCoin" class="w-10 h-10 bg-primary/80 hover:bg-primary rounded-lg flex items-center justify-center text-xl font-bold transition">+</button>
+                    </div>
+                    <p class="text-right font-bold text-lg mt-3 mb-1">Valor Original: R$ <span id="precoCoin">10,00</span></p>
+                    <p class="text-right font-bold text-lg text-green-400 mb-3">Valor com Desconto: R$ <span id="precoCoinDesc">10,00</span></p>
+                    <a id="linkCoinAnjo" href="https://wa.me/5544991148268?text=Olá!%20Quero%20comprar%201%20Coin%20-%20Valor:%20R$%2010,00" target="_blank" class="block w-full bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded-lg text-center transition">
+                        <i class="fa-brands fa-whatsapp mr-1"></i> Comprar com 7AnjoX
+                    </a>
+                    <a id="linkCoinBiel" href="https://wa.me/5534991116468?text=Olá!%20Quero%20comprar%201%20Coin%20-%20Valor:%20R$%2010,00" target="_blank" class="block w-full bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded-lg text-center transition mt-2">
+                        <i class="fa-brands fa-whatsapp mr-1"></i> Comprar com 7BielX
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Seção Todos os VIPs -->
+        <div class="border-2 border-roxo rounded-xl p-6 mb-6 bg-black/40 bg-blur shadow-lg shadow-roxo/10">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fa-solid fa-crown text-roxo text-3xl"></i>
+                <h2 class="text-roxo text-2xl font-bold">TODOS OS VIPs</h2>
+            </div>
+
+            <!-- VIP Básico -->
+            <div class="bg-dark/60 rounded-lg p-4 border border-gray-700 mb-4">
+                <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-2">
+                    <i class="fa-solid fa-star text-gray-400"></i> VIP BÁSICO
+                </h3>
+                <p class="text-gray-300 mb-2">Benefícios: Acesso a áreas básicas, 2x dinheiro, veículos iniciais</p>
+                <p class="font-bold text-lg mb-1">Valor Original: R$ <span class="precoOrig">15,00</span></p>
+                <p class="font-bold text-lg text-green-400 mb-3">Valor com Desconto: R$ <span class="precoDesc">15,00</span></p>
+                <a href="https://wa.me/5544991148268?text=Olá!%20Quero%20comprar%20o%20VIP%20Básico%20-%20Valor:%20R$%2015,00" target="_blank" class="linkVipAnjo block w-full bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded-lg text-center transition">
+                    <i class="fa-brands fa-whatsapp mr-1"></i> Comprar com 7AnjoX
+                </a>
+                <a href="https://wa.me/5534991116468?text=Olá!%20Quero%20comprar%20o%20VIP%20Básico%20-%20Valor:%20R$%2015,00" target="_blank" class="linkVipBiel block w-full bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded-lg text-center transition mt-2">
+                    <i class="fa-brands fa-whatsapp mr-1"></i> Comprar com 7BielX
+                </a>
+            </div>
+
+            <!-- VIP Prata -->
+            <div class="bg-dark/60 rounded-lg p-4 border border-gray-700 mb-4">
+                <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-2">
+                    <i class="fa-solid fa-star text-gray-300"></i> VIP PRATA
+                </h3>
+                <p class="text-gray-300 mb-2">Benefícios: Todos do Básico + 4x dinheiro, 3 veículos exclusivos, casa pequena</p>
+                <p class="font-bold text-lg mb-1">Valor Original: R$ <span class="precoOrig">30,00</span></p>
+                <p class="font-bold text-lg text-green-400 mb-3">Valor com Desconto: R$ <span class="precoDesc">30,00</span></p>
+                <a href="https://wa.me/5544991148268?text=Olá!%20Quero%20comprar%20o%20VIP%20Prata%20-%20Valor:%20R$%2030,00" target="_blank" class="linkVipAnjo block w-full bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded-lg text-center transition">
+                    <i class="fa-brands fa-whatsapp mr-1"></i> Comprar com 7AnjoX
+                </a>
+                <a href="https://wa.me/5534991116468?text=Olá!%20Quero%20comprar%20o%20VIP%20Prata%20-%20Valor:%20R$%2030,00" target="_blank" class="linkVipBiel block w-full bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded-lg text-center transition mt-2">
+                    <i class="fa-brands fa-whatsapp mr-1"></i> Comprar com 7BielX
+                </a>
+            </div>
+
+            <!-- VIP Ouro -->
+            <div class="bg-dark/60 rounded-lg p-4 border border-gray-700 mb-4">
+                <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-2">
+                    <i class="fa-solid fa-star text-yellow-4
